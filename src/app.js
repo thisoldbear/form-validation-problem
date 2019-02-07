@@ -1,5 +1,9 @@
 import React from 'react';
 
-const App = () => <div>App</div>
+import Form from './components/form';
+
+import './styles.css';
+
+const App = () => <Form />
 
 export default App;
