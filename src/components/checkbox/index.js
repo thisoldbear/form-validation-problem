@@ -7,8 +7,8 @@ import StyledErrorMessage from "../error-message";
 const renderField = (name, id, value, label, onChange) => {
   return (
     <Fragment>
-      <label htmlFor={id}>{label}</label>
       <Field id={id} type="checkbox" onChange={onChange} />
+      <label htmlFor={id}>{label}</label>
     </Fragment>
   );
 };

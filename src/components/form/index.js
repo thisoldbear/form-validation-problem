@@ -87,6 +87,7 @@ const Form = () => (
               label="Color"
               hasError={errors.color && touched.color}
             >
+              <option value="">Choose colour</option>
               <option value="blue">Blue</option>
               <option value="green">Green</option>
               <option value="red">Red</option>
