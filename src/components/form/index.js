@@ -1,8 +1,25 @@
 import React, { Fragment } from "react";
 import { Formik, Form as FormikForm, FieldArray } from "formik";
+import * as Yup from "yup";
 
 import FormField from "../form-field";
 import Checkbox from "../checkbox";
+
+const FormSchema = Yup.object().shape({
+  password: Yup.string()
+    .min(8, "Your password is too short. Please enter 8 characters or more.")
+    .required("Required"),
+  email: Yup.string()
+    .email("Invalid email address")
+    .required("Required"),
+  color: Yup.string().required("Required"),
+  animal: Yup.array().min(2, "Please select two animals"),
+  typeOfTiger: Yup.string().when("animal", (animal, schema) => {
+    return animal.includes("tiger")
+      ? schema.required("Please enter a type of tiger")
+      : schema.notRequired();
+  })
+});
 
 const animals = [
   { id: "bear", name: "Bear" },
@@ -10,6 +27,15 @@ const animals = [
   { id: "snake", name: "Snake" },
   { id: "donkey", name: "Donkey" }
 ];
+
+const handleSubmit = values => {
+  fetch("/", {
+    method: "POST",
+    body: JSON.stringify(values)
+  })
+    .then(() => console.log("POST"))
+    .catch(error => alert(error));
+};
 
 const Form = () => (
   <Formik
@@ -20,9 +46,10 @@ const Form = () => (
       animal: [],
       typeOfTiger: ""
     }}
+    validationSchema={FormSchema}
     onSubmit={values => {
-      // same shape as initial values
       console.log(values);
+      handleSubmit(values);
     }}
   >
     {({ values, errors, touched }) => (
@@ -30,7 +57,7 @@ const Form = () => (
         <h1>Fill out this awesome form</h1>
         <fieldset>
           <h3>Your details</h3>
-          <p>
+          <p className={errors.email && touched.email ? "error" : ""}>
             <FormField
               type="text"
               name="email"
@@ -39,7 +66,7 @@ const Form = () => (
               hasError={errors.email && touched.email}
             />
           </p>
-          <p>
+          <p className={errors.password && touched.password ? "error" : ""}>
             <FormField
               type="password"
               name="password"
@@ -52,7 +79,7 @@ const Form = () => (
 
         <fieldset>
           <h3>Your animal</h3>
-          <p>
+          <p className={errors.color && touched.color ? "error" : ""}>
             <FormField
               type="select"
               name="color"
@@ -68,11 +95,12 @@ const Form = () => (
             </FormField>
           </p>
 
-          <p>
+          <p className={errors.animal && touched.animal ? "error" : ""}>
             <FieldArray
               name="animal"
               render={arrayHelpers => (
                 <Fragment>
+                  <span class="label">Animal</span>
                   {animals.map(animal => (
                     <Checkbox
                       key={animal.id}
@@ -94,7 +122,7 @@ const Form = () => (
             />
           </p>
 
-          <p>
+          <p className={errors.typeOfTiger ? "error" : ""}>
             <FormField
               type="text"
               name="typeOfTiger"
@@ -107,7 +135,7 @@ const Form = () => (
 
         <fieldset>
           <p>
-            <button type="submit">Create account</button>
+            <input type="submit" value="Create account" />
           </p>
         </fieldset>
       </FormikForm>

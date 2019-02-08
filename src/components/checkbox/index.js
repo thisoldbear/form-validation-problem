@@ -7,7 +7,7 @@ import StyledErrorMessage from "../error-message";
 const renderField = (name, id, value, label, onChange) => {
   return (
     <Fragment>
-      <label className="label" htmlFor={id}>{label}</label>
+      <label htmlFor={id}>{label}</label>
       <Field id={id} type="checkbox" onChange={onChange} />
     </Fragment>
   );
@@ -16,7 +16,7 @@ const renderField = (name, id, value, label, onChange) => {
 const Checkbox = ({ name, id, value, label, onChange, hasError }) => (
   <Fragment>
     {renderField(name, id, value, label, onChange)}
-    <ErrorMessage name={id} type={StyledErrorMessage} />
+    <ErrorMessage name={id} component={StyledErrorMessage} />
   </Fragment>
 );
 

@@ -38,7 +38,7 @@ const renderField = (name, id, type, label, children) => {
 const FormField = ({ name, id, hasError, type, label, children }) => (
   <Fragment>
     {renderField(name, id, type, label, children)}
-    <ErrorMessage name={id} type={StyledErrorMessage} />
+    <ErrorMessage name={id} component={StyledErrorMessage} />
   </Fragment>
 );
 

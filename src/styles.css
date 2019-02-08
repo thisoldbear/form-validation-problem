@@ -130,6 +130,14 @@ fieldset + fieldset {
   color: red;
 }
 
+.error-message {
+  display: block;
+  margin-top: 10px;
+  border-radius: 3px;
+  font-size: 14px;
+  color: red;
+}
+
 .error > input {
   border-color: red;
 }

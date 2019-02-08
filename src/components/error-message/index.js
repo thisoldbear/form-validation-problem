@@ -1,7 +1,7 @@
-import React, { PureComponent } from "react";
+import React from "react";
 
-export default class StyledErrorMessage extends PureComponent {
-  render() {
-    return <div>{this.props.children}</div>;
-  }
-}
+const StyledErrorMessage = ({ children }) => (
+  <span className="error-message" aria-live="polite">{children}</span>
+);
+
+export default StyledErrorMessage;
