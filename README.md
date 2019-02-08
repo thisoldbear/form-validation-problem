@@ -1,43 +1,61 @@
 # [Form validation problem](https://thibaudcolas.github.io/form-validation-problem/)
 
-We've created this problem to evaluate how developers tackle a real-world problem. If you've been assigned this problem you should spend around **2 hours** working on it. The last thing we want you to do is toil away for days on end!
+Soultion to validating a form against validation criteria. Forked from [Form validation problem](https://github.com/torchbox/form-validation-problem).
 
-If you find yourself taking longer, please stop where you deem appropriate and let us know how you fared. If you finish early, spend a moment to consider what other related skills you could demonstrate – knowledge of a specific tool or library, software development practice; you decide.
+## The task
 
-## Problem definition
+With the time constraints and the need for a "stateful" form, React felt a good fit.
 
-Included in this repository is an [index.html](index.html) file that contains a form. You must ensure all of the following rules are met before the form is posted to the (in this case imaginary) server:
+Additionally, I wanted to demonstrate some React knowledge, as this came up in the interview and my subsequent phone calls.
 
-* `Email` must be a valid email address.
-* `Password` must be longer than 8 characters.
-* `Colour` must be selected.
-* At least two `Animal`s must be chosen.
-* If `Tiger` is one of the chosen `Animal`s then `Type of tiger` is required to be a non-empty string.
+I've used [Formik](https://jaredpalmer.com/formik/docs/api/formik) to build the form and used [Yup](https://github.com/jquense/yup) for validation.
 
-## Other requirements
+Having worked with Formik for the past few months, I'm fairly familiar with it.
 
-If the form is submitted and an error occurs, the error element's parent should have a CSS `error` class added to it.
+Yup was something I looked into for a recent project. Due to the time contstraints I opted to use it for validation, over rolling my own.
 
-```html
-<p class="error">
-    <label for="field"></label>
-    <input id="field" type="text" value="foo">
-</p>
-```
+Had I written my own basic validation functions, I would have added Jest unit tests.
 
-Please write a little bit about the technology you chose and why, including any limitations or possibilities of this approach.
+### Form fields
 
-## The cherry on the cake
+I've abstracted the different form fields into their own React components, to make them reusable and more maintainable.
 
-Beyond the problem statement, show us the consideration you have given to some or all of the following:
+### Error messaging
 
-- Documentation
-- Accessibility
-- Progressive enhancement
-- Browser support
-- Testing
-- Tooling
+I used Formik's `<ErrorMessage />` to display a validation message after touch or form submit.
 
-## Submission
+It's a good feature of Formik, as it allows custom components to be dropped in to the error message and is connected to the parent form.
 
-Please email us a link to your fork of this repository, or a zip of your solution.
+### Links
+
+[Source](https://github.com/thisoldbear/form-validation-problem)
+
+[Live Demo](https://jolly-archimedes-9f0558.netlify.com/)
+
+## Setup
+
+### Install
+
+`yarn install`
+
+### Run
+
+`yarn start`
+
+## Observations/todos
+
+### Known issue
+
+Yuk error message for `animal` does not display when invalid.
+
+### No PropTypes
+
+I would have liked to have added `PropType` checking.
+
+### Form POST
+
+I've used a `fetch()`, which would need to be Polyfilled for older browsers.
+
+I've used [Axios](https://github.com/axios/axios) a lot recently, and would definitely use again on a production app.
+
+This would allow any requests to be tested with [Moxios](https://github.com/axios/moxios).
