@@ -46,7 +46,7 @@ It's a good feature of Formik, as it allows custom components to be dropped in t
 
 ### Known issue
 
-Yuk error message for `animal` does not display when invalid.
+Yup error message for `animal` does not display when invalid.
 
 ### No PropTypes
 
